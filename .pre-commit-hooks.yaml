@@ -1,0 +1,18 @@
+- id: alembic-autoseq-check
+  name: Alembic AutoSeq Migration Check
+  description: Validates that Alembic migrations are linear with no duplicate sequence IDs or multi-heads
+  entry: alembic-autoseq check
+  language: python
+  types: [python]
+  files: ^.*/versions/.*\.py$
+  pass_filenames: false
+
+- id: alembic-autoseq-rebase
+  name: Alembic AutoSeq Auto-Rebase
+  description: Automatically rebases and resolves conflicting branch revisions in Alembic
+  entry: alembic-autoseq rebase
+  language: python
+  types: [python]
+  files: ^.*/versions/.*\.py$
+  pass_filenames: false
+

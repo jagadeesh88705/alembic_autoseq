@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alembic-autoseq"
+version = "0.1.0"
+description = "Automatic sequential migration conflict resolver, multi-head healer, and safety guard for Alembic"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = [
+    "alembic",
+    "sqlalchemy",
+    "migrations",
+    "database",
+    "autosequence",
+    "multi-head",
+    "rebase",
+    "git",
+    "devops"
+]
+authors = [
+    { name = "Jagadeesh Murugesan", email = "jagadeeshsanjay88705@gmail.com" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Database",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Quality Assurance",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+dependencies = [
+    "alembic>=1.7.0",
+    "sqlalchemy>=1.4.0",
+    "click>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jagadeesh88705/alembic_autoseq"
+Documentation = "https://github.com/jagadeesh88705/alembic_autoseq#readme"
+Repository = "https://github.com/jagadeesh88705/alembic_autoseq.git"
+Issues = "https://github.com/jagadeesh88705/alembic_autoseq/issues"
+Changelog = "https://github.com/jagadeesh88705/alembic_autoseq/releases"
+
+[project.scripts]
+alembic-autoseq = "alembic_autoseq.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["alembic_autoseq*"]
+
+[tool.setuptools.package-data]
+alembic_autoseq = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --strict-markers"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
