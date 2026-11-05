@@ -58,20 +58,20 @@ def choose_rebase_candidate(
             if others:
                 return others[0], c
 
-    # 2. Prefer file modification timestamp (newest is branch candidate)
+    # 2. Prefer file modification timestamp if there is a distinct difference
     try:
         sorted_by_mtime = sorted(
             candidates,
             key=lambda f: f.path.stat().st_mtime if f.path.exists() else 0
         )
-        upstream = sorted_by_mtime[0]
-        branch = sorted_by_mtime[-1]
-        if upstream.filename != branch.filename:
-            return upstream, branch
+        t_first = sorted_by_mtime[0].path.stat().st_mtime
+        t_last = sorted_by_mtime[-1].path.stat().st_mtime
+        if (t_last - t_first) >= 0.05:  # At least 50ms difference
+            return sorted_by_mtime[0], sorted_by_mtime[-1]
     except Exception:
         pass
 
-    # 3. Fallback: alphabetical filename order
+    # 3. Deterministic fallback: alphabetical filename order
     sorted_alpha = sorted(candidates, key=lambda f: f.filename)
     return sorted_alpha[0], sorted_alpha[-1]
 

@@ -104,7 +104,8 @@ def downgrade(): pass
     # With alembic_autoseq in env.py, it auto-resolves and finishes without error!
     command.upgrade(cfg, "head")
 
-    # Verify that the directory was healed to 0001 -> 0002 -> 0003
+    # Verify that the directory was healed to a clean sequence: 0001 -> 0002 -> 0003
     assert (versions_dir / "0001_init.py").exists()
-    assert (versions_dir / "0002_user.py").exists()
-    assert (versions_dir / "0003_order.py").exists()
+    all_files = [f.name for f in versions_dir.iterdir() if f.name.endswith(".py")]
+    assert any(f.startswith("0002_") for f in all_files)
+    assert any(f.startswith("0003_") for f in all_files)

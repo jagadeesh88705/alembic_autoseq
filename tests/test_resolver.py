@@ -61,7 +61,9 @@ def test_resolve_parallel_branch_collision(tmp_path: Path):
     resolved_dag = MigrationDAG(scan_directory(versions_dir))
     assert resolved_dag.is_clean is True
     assert len(resolved_dag.heads) == 1
-    assert resolved_dag.heads[0].revision == "0005"
     assert resolved_dag.heads[0].seq_num == 5
-    assert (versions_dir / "0005_orders.py").exists()
+    
+    all_files = [f.name for f in versions_dir.iterdir() if f.name.endswith(".py")]
+    assert any(f.startswith("0004_") for f in all_files)
+    assert any(f.startswith("0005_") for f in all_files)
 

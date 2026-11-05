@@ -7,7 +7,7 @@ name = "alembic-autoseq"
 version = "0.1.0"
 description = "Automatic sequential migration conflict resolver, multi-head healer, and safety guard for Alembic"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = "MIT"
 keywords = [
     "alembic",
@@ -31,7 +31,6 @@ classifiers = [
     "Topic :: Software Development :: Quality Assurance",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
