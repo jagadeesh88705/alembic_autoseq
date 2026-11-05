@@ -10,8 +10,10 @@ logger = logging.getLogger("alembic_autoseq")
 def get_db_current_revisions(connection: Connection) -> List[str]:
     """Inspects the live database alembic_version table to retrieve active revision stamps."""
     try:
-        result = connection.execute(text("SELECT version_num FROM alembic_version"))
-        return [row[0] for row in result.fetchall() if row[0]]
+        # Use savepoint to prevent PostgreSQL InFailedSqlTransaction if table doesn't exist
+        with connection.begin_nested():
+            result = connection.execute(text("SELECT version_num FROM alembic_version"))
+            return [row[0] for row in result.fetchall() if row[0]]
     except Exception as e:
         # Table might not exist yet (fresh DB)
         logger.debug("Could not read alembic_version table: %s", e)
