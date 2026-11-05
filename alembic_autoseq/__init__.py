@@ -8,7 +8,7 @@ from .dag import MigrationDAG
 from .scanner import scan_directory, scan_migration_file
 from .resolver import MigrationResolver
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = [
     "guard",
     "check",
